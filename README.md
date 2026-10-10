@@ -1,68 +1,105 @@
 # CyberShield — Cybersecurity Awareness & Threat Intelligence Dashboard
 
+![Python](https://img.shields.io/badge/Python-3.14-blue)
+![Flask](https://img.shields.io/badge/Flask-REST%20API-lightgrey)
+![SQLite](https://img.shields.io/badge/Database-SQLite-blue)
+![Testing](https://img.shields.io/badge/Tests-5%20Passed-success)
+![Status](https://img.shields.io/badge/Status-Educational%20Prototype-orange)
+
 ## Project Overview
 
-CyberShield is an educational cybersecurity project designed to demonstrate threat intelligence data management, IOC searching, risk scoring, and dashboard analytics using synthetic demonstration data.
+**CyberShield** is an educational cybersecurity project that demonstrates threat intelligence data management, Indicators of Compromise (IOC) searching, demonstration risk scoring, and interactive dashboard analytics.
 
-The application provides a web dashboard where users can explore simulated threat records, filter them by risk level, search indicators of compromise (IOCs), and visualize threat distributions.
+The application combines a Flask REST API, a local SQLite database, synthetic threat intelligence records, and a browser-based dashboard. Users can explore simulated indicators, apply risk-level filters, search IOC values, view threat details, and analyze distributions through interactive charts.
 
-**Important:** All records are synthetic demonstration data. They are not verified real-world threats and must not be used to make real security decisions.
+The project is designed as a learning and portfolio demonstration of backend development, database operations, API design, data visualization, and automated testing.
+
+> **Important:** All records are synthetic demonstration data. They are not verified real-world threats. Risk scores and classifications must not be used to make real security decisions.
 
 ## Key Features
 
-- **Threat Intelligence Dashboard:** Displays threat records from a local SQLite database.
-- **IOC Search:** Search simulated IP addresses, domains, URLs, and hashes.
-- **Risk-Level Filtering:** Filter displayed records by risk level.
-- **Risk Scoring:** Calculate demonstration risk scores using severity and confidence.
-- **Data Visualization:** Interactive charts for risk distribution, IOC types, and severity.
-- **Flask REST API:** Provides endpoints for health checks, threat records, and IOC searches.
-- **SQLite Database:** Stores the synthetic threat intelligence dataset.
-- **Automated Testing:** Uses pytest to test the risk engine and API endpoints.
+- **Threat Intelligence Dashboard:** Displays synthetic threat records stored in a local SQLite database.
+- **IOC Search:** Supports searching demonstration indicators such as IP addresses, domains, URLs, and hashes.
+- **Risk-Level Filtering:** Filters records according to the available risk categories.
+- **Demonstration Risk Scoring:** Calculates risk scores using severity and confidence.
+- **Threat Details Panel:** Displays selected record details in the dashboard.
+- **Interactive Visualizations:** Uses Chart.js to display threat-related distributions and analytics.
+- **Flask REST API:** Provides endpoints for API health, threat records, and IOC searches.
+- **SQLite Database:** Stores the application's synthetic demonstration records.
+- **CSV Dataset Generation:** Generates a reproducible synthetic dataset containing 2,000 records.
+- **CSV Export:** Allows dashboard records to be exported for further educational analysis.
+- **Automated Testing:** Uses pytest to test API endpoints and risk-scoring behaviour.
 
 ## Dashboard Preview
 
 ![CyberShield Threat Intelligence Dashboard](screenshots/dashboard.png)
 
-*CyberShield dashboard displaying synthetic threat intelligence records and analytics. All data is for educational demonstration only.*
+*CyberShield dashboard preview. All displayed records are synthetic and intended for educational demonstration only.*
 
+**Screenshot note:** Ensure that `screenshots/dashboard.png` exists in the repository. If your screenshot has a different filename, update the image path above to match it.
 
 ## Technology Stack
 
 | Technology | Purpose |
 |---|---|
 | Python | Backend logic and risk scoring |
-| Flask | REST API and web server |
-| SQLite | Local database |
-| Pandas | Dataset processing |
+| Flask | Web server and REST API |
+| SQLite | Local database storage |
+| Pandas | Dataset processing dependency |
 | HTML | Dashboard structure |
-| CSS | Dashboard styling |
-| JavaScript | Search, filters, and chart interactions |
-| Chart.js | Data visualization |
+| CSS | Dashboard styling and layout |
+| JavaScript | Search, filters, and dashboard interactions |
+| Chart.js | Interactive charts |
 | pytest | Automated testing |
+| Git and GitHub | Version control and project hosting |
+
+## Application Architecture
+
+```text
+Synthetic CSV Dataset
+        |
+        v
+Database Import Service
+        |
+        v
+SQLite Database
+        |
+        v
+Flask REST API
+        |
+        v
+HTML + CSS + JavaScript Dashboard
+        |
+        v
+Search, Filters, Details,
+Charts and CSV Export
+```
+
+The dataset generator creates demonstration records. The import service calculates risk scores and stores records in SQLite. Flask exposes API endpoints, and the frontend displays the returned information.
 
 ## Project Structure
 
 ```text
 Cybersecurity-Awareness-Threat-Intelligence-Dashboard/
-├── awareness/
 ├── backend/
 │   ├── models/
-│   ├── routes/
+│   │   └── database.py
 │   ├── services/
+│   │   ├── database_service.py
+│   │   └── risk_engine.py
 │   ├── utils/
 │   └── app.py
 ├── data/
 │   ├── generate_dataset.py
 │   └── threat_intelligence_dataset.csv
-├── docs/
 ├── frontend/
 │   ├── css/
 │   │   └── style.css
 │   ├── js/
 │   │   └── dashboard.js
 │   └── index.html
-├── reports/
 ├── screenshots/
+│   └── dashboard.png
 ├── tests/
 │   ├── test_api.py
 │   └── test_risk_engine.py
@@ -70,7 +107,16 @@ Cybersecurity-Awareness-Threat-Intelligence-Dashboard/
 └── README.md
 ```
 
+This is a representative structure. Optional folders and files may differ in your local repository. The screenshot file must exist for the preview to render correctly.
+
 ## Installation and Setup
+
+### Prerequisites
+
+- Python installed on your system
+- Git installed on your system
+- A web browser
+- A terminal such as Windows PowerShell
 
 ### 1. Clone the repository
 
@@ -85,10 +131,16 @@ cd Cybersecurity-Awareness-Threat-Intelligence-Dashboard
 python -m venv .venv
 ```
 
-Activate it on Windows PowerShell:
+Activate it in Windows PowerShell:
 
 ```powershell
 .\.venv\Scripts\Activate.ps1
+```
+
+If PowerShell activation is unavailable, use the environment's Python executable directly:
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
 ```
 
 ### 3. Install dependencies
@@ -97,15 +149,17 @@ Activate it on Windows PowerShell:
 python -m pip install -r requirements.txt
 ```
 
-Ensure that `requirements.txt` includes the packages needed by the project, including Flask, pandas, and pytest.
+The requirements file should list the dependencies needed by the project, including Flask and pytest, along with any other packages actually used by the code.
 
-### 4. Generate the synthetic dataset
+### 4. Generate the synthetic dataset (optional)
 
 ```bash
 python data/generate_dataset.py
 ```
 
-This generates the demonstration threat intelligence CSV file.
+This command generates `data/threat_intelligence_dataset.csv` containing 2,000 synthetic records.
+
+**Warning:** Running the generator again overwrites the existing CSV file. Skip this step if you want to preserve your current dataset.
 
 ### 5. Initialize the database
 
@@ -113,86 +167,138 @@ This generates the demonstration threat intelligence CSV file.
 python -m backend.models.database
 ```
 
+This creates the SQLite database and the `threat_records` table if they do not already exist.
+
 ### 6. Import demonstration records
 
 ```bash
 python -m backend.services.database_service
 ```
 
-### 7. Start the application
+This reads the CSV file, calculates demonstration risk scores, and imports records into SQLite.
 
-```bash
-python -m backend.app
-```
+The import service uses `INSERT OR IGNORE`, so existing record IDs are not inserted again. If you regenerate the dataset with the same record IDs, existing database records will not automatically be updated.
 
-Open the dashboard in a browser:
-
-http://127.0.0.1:5000/
-
-## API Endpoints
-
-| Endpoint | Purpose |
-|---|---|
-| `GET /api/health` | Check API health |
-| `GET /api/threats?limit=10` | Retrieve threat records |
-| `GET /api/search?q=example.com` | Search synthetic IOC records |
-
-The search endpoint requires a non-empty `q` parameter. Requests without a search term return HTTP 400.
-
-## Risk Scoring
-
-The project calculates a demonstration risk score based on threat severity and confidence.
-
-Risk scores and risk categories are intended for learning and dashboard demonstration only. They do not establish that an indicator is malicious or that a real-world system is at risk.
-
-## Testing
-
-Run all automated tests from the project root:
+### 7. Run automated tests
 
 ```bash
 python -m pytest -v
 ```
 
-Current development test result:
+The tests check API health, threat retrieval, search validation, and basic risk-scoring behaviour.
 
-- Risk engine tests: 2 passed
+### 8. Start the application
+
+```bash
+python -m backend.app
+```
+
+Keep the terminal open while using the dashboard.
+
+Open this address in your browser:
+
+**http://127.0.0.1:5000/**
+
+To stop the server, press `Ctrl + C` in the terminal.
+
+## API Documentation
+
+The application provides the following endpoints:
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/` | Serves the dashboard |
+| GET | `/api/health` | Returns API health information |
+| GET | `/api/threats?limit=10` | Retrieves a limited number of threat records |
+| GET | `/api/search?q=example.com` | Searches IOC values |
+
+### Example API requests
+
+Health check:
+
+```text
+http://127.0.0.1:5000/api/health
+```
+
+Retrieve records:
+
+```text
+http://127.0.0.1:5000/api/threats?limit=10
+```
+
+Search the synthetic dataset:
+
+```text
+http://127.0.0.1:5000/api/search?q=example.com
+```
+
+The search endpoint requires a non-empty `q` parameter. A request without a search term returns HTTP 400.
+
+The threat retrieval endpoint accepts limits from 1 to 200.
+
+## Risk Scoring
+
+CyberShield calculates a demonstration risk score based on threat severity and confidence.
+
+The resulting score and risk category are used to demonstrate how security-related information can be organized and visualized in a dashboard.
+
+These values are educational indicators only. They do not prove that an IOC is malicious, that a security incident has occurred, or that a real-world system is at risk.
+
+## Automated Testing
+
+The project uses pytest to validate selected backend functionality.
+
+**Latest recorded development test result:**
+
 - API tests: 3 passed
-- Total: 5 passed
+- Risk engine tests: 2 passed
+- **Total: 5 passed**
 
-These results reflect the tests run during development. Run the command again to verify the current code.
+Run the tests from the project root:
+
+```bash
+python -m pytest -v
+```
+
+The recorded result reflects a previous test run. Execute the command again after making changes to verify the current code.
 
 ## Security and Data Disclaimer
 
 - The dataset contains synthetic demonstration records.
-- The application does not establish the real-world reputation of any IOC.
-- Do not submit confidential, personal, or production security data to this demonstration application.
-- Do not use the generated data for blocking, alerting, or incident-response decisions in real environments.
-- Any future integration with external threat intelligence sources should use authorized sources, safe validation, and appropriate privacy controls.
+- The application does not verify the real-world reputation of an IOC.
+- Do not submit confidential, personal, or production security data to this educational application.
+- Do not use demonstration scores for blocking, alerting, or incident-response decisions in real environments.
+- Treat imported external data as untrusted and validate it before use.
+- Any future external threat-intelligence integration should use authorized sources and appropriate security and privacy controls.
 
 ## Future Improvements
 
-- Add pagination for large result sets.
-- Add stronger validation and error handling.
+- Add pagination for larger datasets.
+- Expand API validation and error handling.
 - Improve search and risk-filter integration.
-- Add more automated tests and test coverage.
-- Add documented screenshots and a user guide.
-- Consider authorized threat intelligence API integrations in a future version.
+- Add more automated tests and measure test coverage.
+- Add a user guide and additional dashboard screenshots.
+- Improve accessibility and responsive dashboard design.
+- Consider authorized threat-intelligence API integrations in a future version.
 
 ## Learning Outcomes
 
 This project demonstrates practical experience with:
 
 - Python backend development
-- REST API design
+- REST API design using Flask
 - SQLite database operations
-- Synthetic data generation and processing
-- Risk scoring concepts
+- Synthetic dataset generation and processing
+- Basic risk-scoring concepts
 - Frontend dashboard development
-- Data visualization
-- Automated testing with pytest
+- Interactive data visualization
+- Automated testing using pytest
+- Git and GitHub project documentation
 
 ## Project Status
 
-Educational prototype under development.
+**Educational prototype under development.**
 
-**Data label: SYNTHETIC / DEMO ONLY**
+CyberShield is intended for learning, experimentation with synthetic data, and portfolio demonstration.
+
+**Data classification: SYNTHETIC / DEMO ONLY**
