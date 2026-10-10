@@ -68,11 +68,9 @@ Cybersecurity-Awareness-Threat-Intelligence-Dashboard/
 ### 1. Clone the repository
 
 ```bash
-git clone YOUR_GITHUB_REPOSITORY_URL
+git clone https://github.com/Anushka-yadav-23/Cybersecurity-Awareness-Threat-Intelligence-Dashboard.git
 cd Cybersecurity-Awareness-Threat-Intelligence-Dashboard
 ```
-
-Replace `YOUR_GITHUB_REPOSITORY_URL` with the actual repository URL.
 
 ### 2. Create a virtual environment
 
