@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CyberShield Threat Intelligence Dashboard</title>
+
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <!-- Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <header class="topbar">
+        <div>
+            <h1>CyberShield Dashboard</h1>
+            <p>Cybersecurity Awareness &amp; Threat Intelligence</p>
+        </div>
+        <span class="demo-label">SYNTHETIC / DEMO ONLY</span>
+    </header>
+
+    <main class="container">
+        <section class="welcome">
+            <h2>Security Overview</h2>
+            <p>Explore simulated threat intelligence records and their demo risk scores.</p>
+            <p id="api-status">Checking API connection...</p>
+        </section>
+
+        <!-- Summary Cards -->
+        <section class="summary-grid">
+            <article class="summary-card">
+                <h3>Total Records Loaded</h3>
+                <p id="total-records">--</p>
+            </article>
+
+            <article class="summary-card">
+                <h3>High Risk</h3>
+                <p id="high-risk">--</p>
+            </article>
+
+            <article class="summary-card">
+                <h3>Critical Risk</h3>
+                <p id="critical-risk">--</p>
+            </article>
+
+            <article class="summary-card">
+                <h3>Data Source</h3>
+                <p class="source-text">Demo Dataset</p>
+            </article>
+        </section>
+
+        <!-- Threat Intelligence Records -->
+        <section class="table-section">
+            <div class="table-heading">
+                <div>
+                    <h2>Threat Intelligence Records</h2>
+                    <p>Records provided by the local Flask API</p>
+                </div>
+
+                <button id="refresh-button" type="button">
+                    Refresh Data
+                </button>
+            </div>
+
+            <!-- Search and Risk Filter -->
+            <div class="search-section">
+                <label for="ioc-search">
+                    Search IOC (IP, Domain, URL or Hash)
+                </label>
+
+                <div class="search-controls">
+                    <select id="risk-filter" aria-label="Filter by risk level">
+                        <option value="">All Risk Levels</option>
+                        <option value="Critical">Critical</option>
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                    </select>
+
+                    <input
+                        type="text"
+                        id="ioc-search"
+                        placeholder="Enter IOC, e.g. example.com"
+                    >
+
+                    <button id="ioc-search-button" type="button">
+                        Search
+                    </button>
+
+                    <button id="ioc-clear-button" type="button">
+                        Clear
+                    </button>
+                </div>
+
+                <p id="search-message" role="status"></p>
+            </div>
+
+            <p id="error-message" role="alert"></p>
+
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>IOC Type</th>
+                            <th>IOC Value</th>
+                            <th>Severity</th>
+                            <th>Confidence</th>
+                            <th>Risk Score</th>
+                            <th>Risk Level</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="threat-table-body">
+                        <tr>
+                            <td colspan="7">Loading records...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="note">
+                These records are synthetic examples for learning.
+                They are not verified real-world threats.
+            </p>
+        </section>
+
+        <!-- Dashboard Analytics Charts -->
+        <section class="charts-section">
+            <h2>Threat Intelligence Analytics</h2>
+
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3>Risk Distribution</h3>
+                    <canvas id="riskChart"></canvas>
+                </div>
+
+                <div class="chart-card">
+                    <h3>IOC Type Distribution</h3>
+                    <canvas id="iocChart"></canvas>
+                </div>
+
+                <div class="chart-card">
+                    <h3>Severity Distribution</h3>
+                    <canvas id="severityChart"></canvas>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>CyberShield | Educational Cybersecurity Project</p>
+    </footer>
+
+    <!-- Dashboard JavaScript -->
+    <script src="/static/js/dashboard.js"></script>
+</body>
+</html>

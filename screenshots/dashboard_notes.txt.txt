@@ -1,0 +1,9 @@
+CyberShield Dashboard Screenshot
+
+Project: Cybersecurity Awareness & Threat Intelligence Dashboard
+
+Status: Flask API Connected
+
+Dashboard records displayed: 200
+
+Data source: SYNTHETIC / DEMO ONLY
