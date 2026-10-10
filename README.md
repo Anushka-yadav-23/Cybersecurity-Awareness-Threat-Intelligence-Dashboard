@@ -19,6 +19,13 @@ The application provides a web dashboard where users can explore simulated threa
 - **SQLite Database:** Stores the synthetic threat intelligence dataset.
 - **Automated Testing:** Uses pytest to test the risk engine and API endpoints.
 
+## Dashboard Preview
+
+![CyberShield Threat Intelligence Dashboard](screenshots/dashboard.png)
+
+*CyberShield dashboard displaying synthetic threat intelligence records and analytics. All data is for educational demonstration only.*
+
+
 ## Technology Stack
 
 | Technology | Purpose |
